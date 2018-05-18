@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Thermostat++</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+	html,body {
+		background: url(sunny.jpg) no-repeat center center fixed;
+		-webkit-background-size: cover; /* For WebKit*/
+		-moz-background-size: cover;    /* Mozilla*/
+		-o-background-size: cover;      /* Opera*/
+		background-size: cover;         /* Generic*/
+	}
+	.Grid {
+		display: flex;
+		flex: 1;
+	}
+	.Grid-cell {
+		flex: 1;
+		padding: .7vw;
+		text-align: right;
+	}
+	.row {
+		flex-direction: row;
+	}
+	.column {
+		flex-direction: column;
+	}
+	#main {
+	}
+	.header {
+		background: rgba(176, 196, 222, 0.5);
+		text-align: center;
+		-moz-border-radius: 3vw;
+		-webkit-border-radius: 3vw;
+		border-radius: 3vw; /* future proofing */
+		-khtml-border-radius: 3vw; /* for old Konqueror browsers */
+		background-clip: border-box;
+		font-family: 'Roboto Slab', serif;
+		font-weight: medium;
+		font-size: 3vw;
+		vertical-align: top;
+		color: darkslategrey;
+	}
+	.name {
+		font-family: 'Roboto', sans-serif;
+		font-weight: medium;
+		font-size: 2vw;
+		vertical-align: top;
+		color: rgba(47,79,79,0.9);
+		position: relative;
+		top: 1.3vw;
+		left: -.7vw;
+	}
+	.number {
+		font-family: 'Roboto', sans-serif;
+		font-weight: black;
+		font-size: 7.4vw;
+		text-align: top;
+		vertical-align: top;
+		color: darkslategrey;
+		text-shadow: .3vw .3vw 1vw rgba(211,211,211,0.7);
+	}
+	.box {
+		background: white;
+		background-color: rgba(255,255,255,0.5);
+		padding: .5vw;
+		-moz-border-radius: 3vw;
+		-webkit-border-radius: 3vw;
+		border-radius: 3vw; /* future proofing */
+		-khtml-border-radius: 3vw; /* for old Konqueror browsers */
+		background-clip: border-box;
+		border-left: .8vw solid rgba(255,255,255,0.52);
+		border-top: .8vw solid rgba(255,255,255,0.52);
+		border-bottom: .8vw solid rgba(255,255,255,0.48);
+		border-right: .8vw solid rgba(255,255,255,0.48);
+	}
+	.function {
+		height:7vw;
+	}
+	.fan {
+		height: 5vw;
+		position: relative;
+		top: -1vw;
+	}
+  </style>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    $(function () {
+      var socket = io();
+      var xxx;
+      $('form').submit(function(){
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('ddn', function(msg){
+      switch (msg.frame) {
+        case "living":
+            $('#living').text(msg.thestring);
+            break;
+        case "office":
+            $('#officetmp').text(msg.thestring);
+            break;
+        case "set":
+            $('#set').text(msg.thestring);
+            break;
+        case "function":
+            $('#function').attr("src", msg.function);
+            $('#fan').attr("src", msg.fan);   
+            break
+      }
+      });
+    });
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  </head>
+  <body>
+  <div class="Grid" id="main">
+	  <div class="Grid">
+		<div class="Grid-cell left">
+			<div class="Grid-cell header">Current Temperature</div>
+			<div class="Grid-cell row">
+				<div class="box">
+					<div class="Grid-cell content column">
+						<span class="name">Thermostat</span>
+						<span class="number">99°</span>
+					</div>
+					<div class="Grid-cell content column">
+						<span class="name">Office</span>
+						<span class="number">99°</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Grid">
+		<div class="Grid-cell right">
+			<div class="Grid-cell header">Set Temperature</div>
+			<div class="Grid-cell row">
+				<div class="box">
+					<div class="Grid-cell content column">
+						<span class="name">Downstairs</span>
+						<span class="number">99°</span>
+					</div>
+					<div class="Grid-cell content column">
+						<span><img class="function" src="heat.png"/><img class="function" src="http://moziru.com/images/snow-clipart-flak-4.png"/></span>
+						<span><img class="fan" src="fan.png"/></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	  </div>
+  </div>
+  </body>
+</html>
