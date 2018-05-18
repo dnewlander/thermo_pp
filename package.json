@@ -1,0 +1,24 @@
+{
+  "name": "thermostat_pp",
+  "version": "1.0.0",
+  "description": "Handles multi-zone thermostats each with multiple remote thermometes. Uses Particle Photons as controllers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dnewlander/thermo_pp.git"
+  },
+  "keywords": [
+    "Thermostat",
+    "Particle",
+    "Photon"
+  ],
+  "author": "Dylan Newlander",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dnewlander/thermo_pp/issues"
+  },
+  "homepage": "https://github.com/dnewlander/thermo_pp#readme"
+}
