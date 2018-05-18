@@ -1,6 +1,6 @@
 {
   "name": "thermostat_pp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Handles multi-zone thermostats each with multiple remote thermometes. Uses Particle Photons as controllers.",
   "main": "index.js",
   "scripts": {
